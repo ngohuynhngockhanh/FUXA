@@ -567,9 +567,13 @@ export class DevicesUtils {
         if (tag.options && Utils.isJson(tag.options)) {
             tag.options = JSON.parse(tag.options);
         }
+        let changed = false 
+        if (items[14]) {
+            changed = items[14].toLowerCase() === 'true' ? true : false
+        }
         tag.daq = <TagDaq> {
-            enabled:  Utils.Boolify(items[12]) ? true : false,
-            changed: true,
+            enabled:  items[12].toLowerCase() === 'true' ? true : false,
+            changed,
             interval: parseInt(items[13]) || 60
         };
         return { tag, deviceId };
